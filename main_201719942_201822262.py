@@ -44,25 +44,23 @@ plt.axis("off")
 plt.imshow(carga_imagen)
 plt.tight_layout()
 ##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
-monedaURL="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg"
+monedaURL="https://web.stanford.edu/class/ee368/Handouts/Lectures/Examples/11-Edge-Detection/Hough_Transform_Circles/coins.png"
 monedas = requests.get(monedaURL)
 with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Monedas"
 	f.write(monedas.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
 print(monedas.shape)
-
 vectorColor = monedas.flatten()
-
 plt.figure("ImagenHistograma")
 plt.subplot(1,2,1)
-plt.imshow(monedas)
-plt.title("Imagen a color")
+plt.imshow(monedas,cmap="gray")
+plt.title("Imagen monedas")
 plt.axis('off')
-
 plt.subplot(1,2,2)
 plt.hist(vectorColor,bins=256)
-plt.title('Histograma imagen a color')
+plt.title('Histograma imagen monedas')
 plt.tight_layout()
 plt.show()
+plt.savefig("ImagenHistograma")
 
 

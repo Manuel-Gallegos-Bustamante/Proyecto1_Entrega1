@@ -61,7 +61,8 @@ plt.hist(vectorColor,bins=256)
 plt.title('Histograma imagen monedas')
 plt.tight_layout()
 plt.show()
-plt.savefig("HistogramaMonedas",Bbox_inches="tight")
+#plt.savefig("HistogramaMonedas",Bbox_inches="tight")
+plt.savefig("HistogramaMonedas")
 ##umbral de binarización de acuerdo al método de Otsu
 binOtsu=threshold_otsu(monedas)
 #monedas_binOtsu=monedas<binOtsu
@@ -69,11 +70,17 @@ monedas_binOtsu=monedas>binOtsu
 print(binOtsu)
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con Otsu")
-plt.imshow(monedas_binOtsu,cmap="gray")
+plt.imshow(monedas_binOtsu, cmap="gray")
 plt.axis('off')
 ##binarización con percentil 60
 monedas_percentil60=monedas>60 #NO SÉ SI ES ASÍ
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con percentil 60")
-plt.imshow(monedas_percentil60,cmap="gray")
+plt.imshow(monedas_percentil60, cmap="gray")
+plt.axis('off')
+##binarización con umbral = 175
+monedas_umbral175= monedas > 175 #NO SÉ SI ES ASÍ
+plt.figure("BinOtsu")
+plt.title("Binarización de la imagen con umbral 175")
+plt.imshow(monedas_umbral175, cmap="gray")
 plt.axis('off')

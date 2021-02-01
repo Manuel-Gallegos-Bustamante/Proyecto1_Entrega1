@@ -2,6 +2,7 @@
 #Manuel Gallegos Bustamante #Código: 201719942
 #Análisis y procesamiento de imágenes: Proyecto1 Entrega1
 #Se importan librerías que se utilizarán para el desarrollo del laboratorio
+#Intento 2!!!!
 
 
 

@@ -50,3 +50,19 @@ with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para ab
 	f.write(monedas.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
 print(monedas.shape)
+
+vectorColor = monedas.flatten()
+
+plt.figure()
+plt.subplot(1,2,1)
+plt.imshow(monedas)
+plt.tile("Imagen original")
+plt.axis('off')
+
+plt.subplot(221)
+plt.hist(vectorColor)
+plt.title('Histograma')
+
+plt.show()
+
+

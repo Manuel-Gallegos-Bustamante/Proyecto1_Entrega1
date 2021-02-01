@@ -51,7 +51,7 @@ with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para ab
 monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
 print(monedas.shape)
 vectorColor = monedas.flatten()
-plt.figure("ImagenHistograma")
+plt.figure("HistogramaMonedas")
 plt.subplot(1,2,1)
 plt.imshow(monedas,cmap="gray")
 plt.title("Imagen monedas")
@@ -61,6 +61,13 @@ plt.hist(vectorColor,bins=256)
 plt.title('Histograma imagen monedas')
 plt.tight_layout()
 plt.show()
-plt.savefig("ImagenHistograma")
-
-
+plt.savefig("HistogramaMonedas")
+##umbral de binarización de acuerdo al método de Otsu
+binOtsu=threshold_otsu(monedas)
+#monedas_binOtsu=monedas<binOtsu
+monedas_binOtsu=monedas>binOtsu
+print(binOtsu)
+plt.figure("BinOtsu")
+plt.title("Binarización de la imagen con Otsu")
+plt.imshow(monedas_binOtsu,cmap="gray")
+plt.axis('off')

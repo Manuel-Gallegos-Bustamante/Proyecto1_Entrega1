@@ -71,3 +71,9 @@ plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con Otsu")
 plt.imshow(monedas_binOtsu,cmap="gray")
 plt.axis('off')
+##binarización con percentil 60
+monedas_percentil60=monedas>60 #NO SÉ SI ES ASÍ
+plt.figure("BinOtsu")
+plt.title("Binarización de la imagen con percentil 60")
+plt.imshow(monedas_percentil60,cmap="gray")
+plt.axis('off')

@@ -53,16 +53,16 @@ print(monedas.shape)
 
 vectorColor = monedas.flatten()
 
-plt.figure()
+plt.figure("ImagenHistograma")
 plt.subplot(1,2,1)
 plt.imshow(monedas)
-plt.tile("Imagen original")
+plt.title("Imagen a color")
 plt.axis('off')
 
-plt.subplot(221)
-plt.hist(vectorColor)
-plt.title('Histograma')
-
+plt.subplot(1,2,2)
+plt.hist(vectorColor,bins=256)
+plt.title('Histograma imagen a color')
+plt.tight_layout()
 plt.show()
 
 

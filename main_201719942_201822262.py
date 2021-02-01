@@ -18,6 +18,14 @@ with open("Elefantes", "wb") as f: # se trabaja con f como la abreviación para 
 	f.write(r.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 carga_imagen=io.imread("Elefantes") # se carga la imagen del archivo creado con io.imread
 
+monedaURL="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg"
+monedas = requests.get(monedaURL)
+with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Elefantes"
+	f.write(monedas.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
+monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
+
+print(monedas.shape)
+
 plt.figure("VisualizaciónAnotaciones")
 plt.subplot(3,2,1)
 plt.title("Imagen a color")

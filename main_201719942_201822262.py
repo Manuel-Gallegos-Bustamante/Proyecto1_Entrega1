@@ -64,6 +64,7 @@ plt.show()
 #plt.savefig("HistogramaMonedas",Bbox_inches="tight")
 plt.savefig("HistogramaMonedas")
 ##umbral de binarización de acuerdo al método de Otsu
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 binOtsu=threshold_otsu(monedas)
 #monedas_binOtsu=monedas<binOtsu
 monedas_binOtsu=monedas>binOtsu
@@ -73,6 +74,7 @@ plt.title("Binarización de la imagen con Otsu")
 plt.imshow(monedas_binOtsu, cmap="gray")
 plt.axis('off')
 ##binarización con percentil 60
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 calculo_percentil60=np.percentile(monedas,60)
 monedas_percentil60=monedas>calculo_percentil60 #NO SÉ SI ES ASÍ
 plt.figure("BinOtsu")
@@ -80,6 +82,7 @@ plt.title("Binarización de la imagen con percentil 60")
 plt.imshow(monedas_percentil60, cmap="gray")
 plt.axis('off')
 ##binarización con umbral = 175
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 monedas_umbral175= monedas > 175 #NO SÉ SI ES ASÍ
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con umbral 175")

@@ -144,3 +144,7 @@ plt.title("Segmentación 4: Umbral\nrango ____")#FALTA
 plt.axis('off')
 #plt.tight_layout()
 
+##PROBLEMA BIOMÉDICO
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
+print(len(archivosresonancias))

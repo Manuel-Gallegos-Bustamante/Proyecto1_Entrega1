@@ -4,6 +4,7 @@
 #Se importan librerías que se utilizarán para el desarrollo del laboratorio
 from skimage.filters import threshold_otsu
 import cv2
+import nibabel
 from scipy.io import loadmat
 import os
 import glob
@@ -12,7 +13,7 @@ import skimage.io as io
 import requests
 from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
-
+##
 image_url="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg"
 r=requests.get(image_url)
 with open("Elefantes", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Elefantes"
@@ -147,4 +148,9 @@ plt.axis('off')
 ##PROBLEMA BIOMÉDICO
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
-print(len(archivosresonancias))
+#print(len(archivosresonancias))
+for i in range(1,len(archivosresonancias)+1):
+	#print(i)
+	carga=nibabel.load(os.path.join("Heart_Data","Data",str(i)+".nii.gz"))
+	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
+	#carga.atributo1

@@ -95,9 +95,10 @@ plt.axis('off')
 
 ##subplot para máscaras con segmentaciones en escala de grises
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
-#cv2.threshold : como primer parámetro recibe la imágen en escala de grises, el segundo parámetro es el valor del umbral, el tercer parámetro el valor máximo para dar al pixel en caso dado de que sea mayor al umbral? ; como cuarto parámetro recibe el tipo de umbralización. La función retorna como primer output un retval y como segundo output la imagen con el umbral indicado
+#cv2.threshold : como primer parámetro recibe la imágen en escala de grises, el segundo parámetro es el valor del umbral, el tercer parámetro el valor máximo para dar al pixel en caso dado de que sea mayor al umbral? (no estoy segura); como cuarto parámetro recibe el tipo de umbralización. La función retorna como primer output un retval y como segundo output la imagen con el umbral indicado
+# retval: For this, our cv2.threshold() function is used, but pass an extra flag, cv2.THRESH_OTSU. For threshold value, simply pass zero. Then the algorithm finds the optimal threshold value and returns you as the second output, retVal. If Otsu thresholding is not used, retVal is same as the threshold value you used
 #cv2.THRESH_TOZERO : si el pixel tiene un valor mayor al del umbral que indica el 2do parámetro de cv2.threshold el pixel mantiene el nivel de gris correspondiente a la imagen original; en caso de que el valor del pixel sea menor al umbral (indicado en el parámatro previamente mencionado) se le asigna un 0, es decir negro
-retval_Otsu,segmentacion_Otsu=cv2.threshold(monedas,binOtsu,255,cv2.THRESH_TOZERO) #retval: For this, our cv2.threshold() function is used, but pass an extra flag, cv2.THRESH_OTSU. For threshold value, simply pass zero. Then the algorithm finds the optimal threshold value and returns you as the second output, retVal. If Otsu thresholding is not used, retVal is same as the threshold value you used
+retval_Otsu,segmentacion_Otsu=cv2.threshold(monedas,binOtsu,255,cv2.THRESH_TOZERO)
 retval_percen60,segmentacion_percentil60=cv2.threshold(monedas,calculo_percentil60,255,cv2.THRESH_TOZERO)
 retval_umbral175,segmentacion_umbral175=cv2.threshold(monedas,175,255,cv2.THRESH_TOZERO)
 

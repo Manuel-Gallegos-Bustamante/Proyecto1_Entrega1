@@ -88,3 +88,28 @@ plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con umbral 175")
 plt.imshow(monedas_umbral175, cmap="gray")
 plt.axis('off')
+##selección de dos umbrales arbitrarios
+#FALTA
+
+##subplot para máscaras con segmentaciones en escala de grises
+plt.figure("MascarasySegmentaciones")
+plt.subplot(2,4,1)
+plt.imshow(monedas_binOtsu,cmap="gray")
+plt.title("Máscara 1:\nOtsu")
+plt.axis('off')
+plt.tight_layout()
+plt.subplot(2,4,2)
+plt.imshow(monedas_percentil60,cmap="gray")
+plt.title("Máscara 2:\nPercentil 60")
+plt.axis('off')
+plt.tight_layout()
+plt.subplot(2,4,3)
+plt.imshow(monedas_umbral175,cmap="gray")
+plt.title("Máscara 2: Umbral\narbitrario 175")
+plt.axis('off')
+plt.tight_layout()
+plt.subplot(2,4,4)
+plt.imshow(monedas,cmap="gray") #FALTA
+plt.title("Máscara 2: Umbral\nrango ____")#FALTA
+plt.axis('off')
+plt.tight_layout()

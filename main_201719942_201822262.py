@@ -103,6 +103,8 @@ retval_Otsu,segmentacion_Otsu=cv2.threshold(monedas,binOtsu,255,cv2.THRESH_TOZER
 retval_percen60,segmentacion_percentil60=cv2.threshold(monedas,calculo_percentil60,255,cv2.THRESH_TOZERO)
 retval_umbral175,segmentacion_umbral175=cv2.threshold(monedas,175,255,cv2.THRESH_TOZERO)
 
+##subplot para máscaras con segmentaciones en escala de grises
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 plt.figure("MascarasySegmentaciones")
 plt.subplot(2,4,1)
 plt.imshow(monedas_binOtsu,cmap="gray")
@@ -125,17 +127,17 @@ plt.title("Máscara 4: Umbral\nrango ____")#FALTA
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,5)
-plt.imshow(segmentacion_Otsu,cmap="gray")
+plt.imshow(monedas_binOtsu*monedas,cmap="gray")
 plt.title("Segmentación 1:\nOtsu")
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,6)
-plt.imshow(segmentacion_percentil60,cmap="gray")
+plt.imshow(monedas_percentil60*monedas,cmap="gray")
 plt.title("Segmentación 2:\nPercentil 60")
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,7)
-plt.imshow(segmentacion_umbral175,cmap="gray")
+plt.imshow(monedas*monedas_umbral175,cmap="gray")
 plt.title("Segmentación 3:\nUmbral 175")
 plt.axis('off')
 #plt.tight_layout()
@@ -149,8 +151,9 @@ plt.axis('off')
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
 #print(len(archivosresonancias))
-for i in range(1,len(archivosresonancias)+1):
+for i in archivosresonancias:
+	#range(1,len(archivosresonancias)+1):
 	#print(i)
-	carga=nibabel.load(os.path.join("Heart_Data","Data",str(i)+".nii.gz"))
+	carga=nibabel.load(i)
 	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
 	#carga.atributo1

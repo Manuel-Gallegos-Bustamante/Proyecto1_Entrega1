@@ -13,7 +13,7 @@ import skimage.io as io
 import requests
 from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
-##
+
 image_url="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg"
 r=requests.get(image_url)
 with open("Elefantes", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Elefantes"
@@ -45,6 +45,7 @@ plt.title("Anotación Segmentación \nde Instancias")
 plt.axis("off")
 plt.imshow(carga_imagen)
 plt.tight_layout()
+plt.show()
 ##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 monedaURL="https://web.stanford.edu/class/ee368/Handouts/Lectures/Examples/11-Edge-Detection/Hough_Transform_Circles/coins.png"
 monedas = requests.get(monedaURL)

@@ -46,6 +46,7 @@ plt.axis("off")
 plt.imshow(io.imread("Seg_Instancias.jpeg"))
 plt.tight_layout()
 plt.show()
+plt.savefig("VisualizaciónAnotaciones",Bbox_inches="tight")
 ##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 monedaURL="https://web.stanford.edu/class/ee368/Handouts/Lectures/Examples/11-Edge-Detection/Hough_Transform_Circles/coins.png"
 monedas = requests.get(monedaURL)
@@ -161,9 +162,9 @@ for i in archivosresonancias:
 	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
 	#carga.atributo1
 	#Atributo identificar paciente -> intent_name     : b'Patient 3'
-	# Atributo identificar #total cortes -> slice_end       : 35
-	# Atributo identificar #corte -> descrip         : b'Slice 1'
-	#Atributo resolución corte-> datatype        : int16    o      bitpix          : 16
+	#Atributo identificar #total cortes -> slice_end       : 35
+	#Atributo identificar #corte -> descrip         : b'Slice 1'
+	#Atributo resolución corte->  bitpix          : 16
 
 vol1=np.single([[],[],[]])
 vol2=np.single([[],[],[]])

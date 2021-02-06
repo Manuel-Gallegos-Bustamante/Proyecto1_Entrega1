@@ -26,17 +26,14 @@ plt.subplot(3,2,1)
 plt.title("Imagen a color")
 plt.imshow(carga_imagen)
 plt.axis("off")
-#plt.tight_layout()
 plt.subplot(3,2,3)
 plt.title("Anotación Clasificación")
 plt.imshow(io.imread("Clasificacion.png"))
 plt.axis("off")
-#plt.tight_layout()
 plt.subplot(3,2,4)
 plt.title("Anotación Detección")
 plt.axis("off")
 plt.imshow(io.imread("Deteccion.jpeg"))
-#plt.tight_layout()
 plt.subplot(3,2,5)
 plt.title("Anotación Segmentación \nSemántica")
 plt.imshow(io.imread("Seg_Semantica.jpeg"))
@@ -54,7 +51,6 @@ monedas = requests.get(monedaURL)
 with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Monedas"
 	f.write(monedas.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
-#print(monedas.shape)
 vectorColor = monedas.flatten()
 plt.figure("HistogramaMonedas")
 plt.subplot(1,2,1)
@@ -71,9 +67,8 @@ plt.savefig("HistogramaMonedas")
 ##umbral de binarización de acuerdo al método de Otsu
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 binOtsu=threshold_otsu(monedas)
-#monedas_binOtsu=monedas<binOtsu
 monedas_binOtsu=monedas>binOtsu
-print(binOtsu)
+#print(binOtsu)
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con Otsu")
 plt.imshow(monedas_binOtsu, cmap="gray")
@@ -111,51 +106,35 @@ plt.imshow(monedas_copia, cmap='gray')
 plt.axis('off')
 ##subplot para máscaras con segmentaciones en escala de grises
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
-#cv2.threshold : como primer parámetro recibe la imágen en escala de grises, el segundo parámetro es el valor del umbral, el tercer parámetro el valor máximo para dar al pixel en caso dado de que sea mayor al umbral? (no estoy segura); como cuarto parámetro recibe el tipo de umbralización. La función retorna como primer output un retval y como segundo output la imagen con el umbral indicado
-# retval: For this, our cv2.threshold() function is used, but pass an extra flag, cv2.THRESH_OTSU. For threshold value, simply pass zero. Then the algorithm finds the optimal threshold value and returns you as the second output, retVal. If Otsu thresholding is not used, retVal is same as the threshold value you used
-#cv2.THRESH_TOZERO : si el pixel tiene un valor mayor al del umbral que indica el 2do parámetro de cv2.threshold el pixel mantiene el nivel de gris correspondiente a la imagen original; en caso de que el valor del pixel sea menor al umbral (indicado en el parámatro previamente mencionado) se le asigna un 0, es decir negro
-retval_Otsu,segmentacion_Otsu=cv2.threshold(monedas,binOtsu,255,cv2.THRESH_TOZERO)
-retval_percen60,segmentacion_percentil60=cv2.threshold(monedas,calculo_percentil60,255,cv2.THRESH_TOZERO)
-retval_umbral175,segmentacion_umbral175=cv2.threshold(monedas,175,255,cv2.THRESH_TOZERO)
-
-##subplot para máscaras con segmentaciones en escala de grises
-#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 plt.figure("MascarasySegmentaciones")
 plt.subplot(2,4,1)
 plt.imshow(monedas_binOtsu,cmap="gray")
 plt.title("Máscara 1:\nOtsu")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,2)
 plt.imshow(monedas_percentil60,cmap="gray")
 plt.title("Máscara 2:\nPercentil 60")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,3)
 plt.imshow(monedas_umbral175,cmap="gray")
 plt.title("Máscara 3: Umbral\narbitrario 175")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,4)
 plt.imshow(monedas_copia,cmap="gray")
 plt.title("Máscara 4: Umbral\nrango 65-250")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,5)
 plt.imshow(monedas_binOtsu*monedas,cmap="gray")
 plt.title("Segmentación 1:\nOtsu")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,6)
 plt.imshow(monedas_percentil60*monedas,cmap="gray")
 plt.title("Segmentación 2:\nPercentil 60")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,7)
 plt.imshow(monedas*monedas_umbral175,cmap="gray")
 plt.title("Segmentación 3:\nUmbral 175")
 plt.axis('off')
-#plt.tight_layout()
 plt.subplot(2,4,8)
 plt.imshow(monedas_copia * monedas,cmap="gray")
 plt.title("Segmentación 4: Umbral\nrango 65-250")
@@ -166,19 +145,65 @@ plt.show()
 ##PROBLEMA BIOMÉDICO
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
-#print(len(archivosresonancias))
-
+info = {}
 for i in archivosresonancias:
-	#range(1,len(archivosresonancias)+1):
-	print(i)
-	carga=nibabel.load(i)
-	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
+	carga = nibabel.load(i)
+	paciente = (str(carga.header['intent_name']).replace("b'",""))[:-1]
+	if paciente not in info:
+		x, y = carga.shape
+		info[paciente] = {'filas':x, 'columnas':y,'cortes':int(carga.header['slice_end'])}
+	#print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
 	#carga.atributo1
 	#Atributo identificar paciente -> intent_name     : b'Patient 3'
 	#Atributo identificar #total cortes -> slice_end       : 35
 	#Atributo identificar #corte -> descrip         : b'Slice 1'
 	#Atributo resolución corte->  bitpix          : 16
 
-vol1=np.single([[],[],[]])
-vol2=np.single([[],[],[]])
-vol3=np.single([[],[],[]])
+vol1=np.zeros([info['Patient 12']['filas'], info['Patient 12']['columnas'],info['Patient 12']['cortes']])
+vol2=np.zeros([info['Patient 14']['filas'], info['Patient 14']['columnas'],info['Patient 14']['cortes']])
+vol3=np.zeros([info['Patient 3']['filas'], info['Patient 3']['columnas'],info['Patient 3']['cortes']])
+
+#print(vol1.shape, vol2.shape, vol3.shape)
+for i in archivosresonancias:
+	carga = nibabel.load(i)
+	paciente = (str(carga.header['intent_name']).replace("b'",""))[:-1]
+	corte = int((str(carga.header['descrip']).replace("b'Slice ", ""))[:-1])
+	if paciente == 'Patient 12':
+		vol1[:,:,corte] = carga.get_fdata()
+	elif paciente == 'Patient 14':
+		vol2[:,:,corte] = carga.get_fdata()
+	elif paciente == 'Patient 3':
+		vol3[:,:,corte] = carga.get_fdata()
+##
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+plt.ion()
+plt.show()
+for i in range(len(vol1[0,0])):
+   plt.imshow(vol1[:,:,i], cmap='gray')
+   plt.axis('off')
+   plt.title(f'Resonancia paciente 12, corte {i}')
+   plt.draw()
+   plt.pause(0.001)
+   plt.clf()
+##
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+plt.ion()
+plt.show()
+for i in range(len(vol2[0,0])):
+   plt.imshow(vol2[:,:,i], cmap='gray')
+   plt.axis('off')
+   plt.title(f'Resonancia paciente 14, corte {i}')
+   plt.draw()
+   plt.pause(0.001)
+   plt.clf()
+##
+#input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+plt.ion()
+plt.show()
+for i in range(len(vol3[0,0])):
+   plt.imshow(vol3[:,:,i], cmap='gray')
+   plt.axis('off')
+   plt.title(f'Resonancia paciente 3, corte {i}')
+   plt.draw()
+   plt.pause(0.001)
+   plt.clf()

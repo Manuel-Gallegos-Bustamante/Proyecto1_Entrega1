@@ -2,6 +2,7 @@
 #Manuel Gallegos Bustamante #Código: 201719942
 #Análisis y procesamiento de imágenes: Proyecto1 Entrega1
 #Se importan librerías que se utilizarán para el desarrollo del laboratorio
+##
 from skimage.filters import threshold_otsu
 import cv2
 import nibabel
@@ -72,7 +73,7 @@ plt.savefig("HistogramaMonedas")
 binOtsu=threshold_otsu(monedas)
 #monedas_binOtsu=monedas<binOtsu
 monedas_binOtsu=monedas>binOtsu
-#print(binOtsu)
+print(binOtsu)
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con Otsu")
 plt.imshow(monedas_binOtsu, cmap="gray")
@@ -80,22 +81,34 @@ plt.axis('off')
 ##binarización con percentil 60
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 calculo_percentil60=np.percentile(monedas,60)
-monedas_percentil60=monedas>calculo_percentil60 #NO SÉ SI ES ASÍ
-plt.figure("BinOtsu")
+monedas_percentil60=monedas>calculo_percentil60
+#print(calculo_percentil60)
+plt.figure("Percentil 60")
 plt.title("Binarización de la imagen con percentil 60")
 plt.imshow(monedas_percentil60, cmap="gray")
 plt.axis('off')
 ##binarización con umbral = 175
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
-monedas_umbral175= monedas > 175 #NO SÉ SI ES ASÍ
-plt.figure("BinOtsu")
+monedas_umbral175 = monedas > 175
+plt.figure("Umbral 175")
 plt.title("Binarización de la imagen con umbral 175")
 plt.imshow(monedas_umbral175, cmap="gray")
 plt.axis('off')
 ##selección de dos umbrales arbitrarios y establecer rango
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
-#FALTA
-
+monedas_copia = monedas.copy()
+#monedas_copia = monedas_copia.flatten()
+#print(monedas_copia)
+for i in range(0, len(monedas_copia)):
+	for j in range(0, len(monedas_copia[i])):
+		if monedas_copia[i][j] > 65 and monedas_copia[i][j] < 250:
+			monedas_copia[i][j] = 255
+		else:
+			monedas_copia[i][j] = 0
+plt.figure("Umbral arbitrario")
+plt.title("Umbral arbitrario")
+plt.imshow(monedas_copia, cmap='gray')
+plt.axis('off')
 ##subplot para máscaras con segmentaciones en escala de grises
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 #cv2.threshold : como primer parámetro recibe la imágen en escala de grises, el segundo parámetro es el valor del umbral, el tercer parámetro el valor máximo para dar al pixel en caso dado de que sea mayor al umbral? (no estoy segura); como cuarto parámetro recibe el tipo de umbralización. La función retorna como primer output un retval y como segundo output la imagen con el umbral indicado
@@ -124,8 +137,8 @@ plt.title("Máscara 3: Umbral\narbitrario 175")
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,4)
-plt.imshow(monedas,cmap="gray") #FALTA
-plt.title("Máscara 4: Umbral\nrango ____")#FALTA
+plt.imshow(monedas_copia,cmap="gray")
+plt.title("Máscara 4: Umbral\nrango 65-250")
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,5)
@@ -144,8 +157,8 @@ plt.title("Segmentación 3:\nUmbral 175")
 plt.axis('off')
 #plt.tight_layout()
 plt.subplot(2,4,8)
-plt.imshow(monedas,cmap="gray") #FALTA
-plt.title("Segmentación 4: Umbral\nrango ____")#FALTA
+plt.imshow(monedas_copia * monedas,cmap="gray")
+plt.title("Segmentación 4: Umbral\nrango 65-250")
 plt.axis('off')
 plt.tight_layout()
 plt.show()
@@ -157,7 +170,7 @@ archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
 
 for i in archivosresonancias:
 	#range(1,len(archivosresonancias)+1):
-	#print(i)
+	print(i)
 	carga=nibabel.load(i)
 	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
 	#carga.atributo1

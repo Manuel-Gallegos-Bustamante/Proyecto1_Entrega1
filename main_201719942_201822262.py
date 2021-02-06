@@ -28,7 +28,7 @@ plt.axis("off")
 #plt.tight_layout()
 plt.subplot(3,2,3)
 plt.title("Anotación Clasificación")
-plt.imshow(carga_imagen)
+plt.imshow(io.imread("Clasificacion.png"))
 plt.axis("off")
 #plt.tight_layout()
 plt.subplot(3,2,4)
@@ -52,7 +52,7 @@ monedas = requests.get(monedaURL)
 with open("Monedas", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Monedas"
 	f.write(monedas.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 monedas = io.imread("Monedas") # se carga la imagen del archivo creado con io.imread
-print(monedas.shape)
+#print(monedas.shape)
 vectorColor = monedas.flatten()
 plt.figure("HistogramaMonedas")
 plt.subplot(1,2,1)
@@ -71,7 +71,7 @@ plt.savefig("HistogramaMonedas")
 binOtsu=threshold_otsu(monedas)
 #monedas_binOtsu=monedas<binOtsu
 monedas_binOtsu=monedas>binOtsu
-print(binOtsu)
+#print(binOtsu)
 plt.figure("BinOtsu")
 plt.title("Binarización de la imagen con Otsu")
 plt.imshow(monedas_binOtsu, cmap="gray")
@@ -146,15 +146,25 @@ plt.subplot(2,4,8)
 plt.imshow(monedas,cmap="gray") #FALTA
 plt.title("Segmentación 4: Umbral\nrango ____")#FALTA
 plt.axis('off')
-#plt.tight_layout()
+plt.tight_layout()
+plt.show()
 
 ##PROBLEMA BIOMÉDICO
 #input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 archivosresonancias=glob.glob(os.path.join("Heart_Data","Data","*.nii.gz"))
 #print(len(archivosresonancias))
+
 for i in archivosresonancias:
 	#range(1,len(archivosresonancias)+1):
 	#print(i)
 	carga=nibabel.load(i)
 	print(carga) #después lo comentamos es para ver qué atributo es el que nos sirve para saber la info del enunciado
 	#carga.atributo1
+	#Atributo identificar paciente -> intent_name     : b'Patient 3'
+	# Atributo identificar #total cortes -> slice_end       : 35
+	# Atributo identificar #corte -> descrip         : b'Slice 1'
+	#Atributo resolución corte-> datatype        : int16    o      bitpix          : 16
+
+vol1=np.single([[],[],[]])
+vol2=np.single([[],[],[]])
+vol3=np.single([[],[],[]])

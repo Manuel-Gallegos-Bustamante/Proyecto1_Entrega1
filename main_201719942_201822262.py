@@ -106,7 +106,7 @@ for i in range(0, len(monedas_copia)):
 		else:
 			monedas_copia[i][j] = 0
 plt.figure("Umbral arbitrario")
-plt.title("Umbral arbitrario")
+plt.title("Umbral arbitrario") 
 plt.imshow(monedas_copia, cmap='gray')
 plt.axis('off')
 ##subplot para máscaras con segmentaciones en escala de grises

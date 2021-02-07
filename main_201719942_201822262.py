@@ -217,7 +217,7 @@ plt.show()
 for i in range(len(vol2[0,0])):# recorrido para visualización eje z
 	plt.imshow(vol2[:,:,i], cmap='gray')# se visualiza la imagen con el colormap "gray" desactivando los ejes (axis("off")) y "dibujando" sobre la figura el corte de cada iteración junto con su respectivo título
 	plt.axis('off')
-	plt.title(f'Resonancia paciente 14, corte {i}')
+	plt.title(f'Resonancia paciente 14, eje z, corte {i}')
 	plt.draw()
 	plt.pause(0.001) # se realiza una pausa de 0.001 segundos para porteriormente cerrar la visualización del corte
 	plt.clf()
@@ -248,7 +248,7 @@ plt.show()
 for i in range(len(vol3[0,0])):# recorrido para visualización eje z
 	plt.imshow(vol3[:,:,i], cmap='gray') # se visualiza la imagen con el colormap "gray" desactivando los ejes (axis("off")) y "dibujando" sobre la figura el corte de cada iteración junto con su respectivo título
 	plt.axis('off')
-	plt.title(f'Resonancia paciente 3, corte {i}')
+	plt.title(f'Resonancia paciente 3, eje z, corte {i}')
 	plt.draw()
 	plt.pause(0.001) # se realiza una pausa de 0.001 segundos para porteriormente cerrar la visualización del corte
 	plt.clf()

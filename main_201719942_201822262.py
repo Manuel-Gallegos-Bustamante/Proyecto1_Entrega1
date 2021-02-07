@@ -4,7 +4,6 @@
 #Se importan librerías que se utilizarán para el desarrollo del laboratorio
 ##
 from skimage.filters import threshold_otsu
-import cv2
 import nibabel
 from scipy.io import loadmat
 import os
@@ -15,36 +14,37 @@ import requests
 from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
 
-image_url="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg"
-r=requests.get(image_url)
+image_url="https://estaticos.muyinteresante.es/uploads/images/article/57a2ef2a5cafe82d7b8b4567/elefante_0.jpg" # se asigna a una variable la url de la imagen que se trabajará en la primera parte del laboratorio
+r=requests.get(image_url) # se accede a la imagen para su descarga por medio de la url con requests.get
 with open("Elefantes", "wb") as f: # se trabaja con f como la abreviación para abrir un archivo para escritura "Elefantes"
 	f.write(r.content) #se escribe con .write en el archivo previamente mencionado el contenido de la descarga de la imagen realizado previamente con .content
 carga_imagen=io.imread("Elefantes") # se carga la imagen del archivo creado con io.imread
 ##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+# se crea una figura VisualizaciónAnotaciones la cual contiene un supplot de 3x2 para la visualización de las diferentes anotaciones y segmentaciones que indica el enunciado
 plt.figure("VisualizaciónAnotaciones")
-plt.subplot(3,2,1)
-plt.title("Imagen a color")
-plt.imshow(carga_imagen)
+plt.subplot(3,2,1) # para cada subplot se indican como 1er parámetro el número de filas, como 2do parámetro el número de columnas y como 3er parámetro el índice en el cual irá la imagen
+plt.title("Imagen a color") # Para cada una de las imágenes se inserta el título con plt.title, se realiza la visualización de la imágen con plt.imshow y se cancela la visualización de los ejes con plt.axis("off")
+plt.imshow(carga_imagen) # imagen original a color
 plt.axis("off")
 plt.subplot(3,2,3)
 plt.title("Anotación Clasificación")
-plt.imshow(io.imread("Clasificacion.png"))
+plt.imshow(io.imread("Clasificacion.png")) # se lee la imagen correspondiente a la anotación de clasificación con io.imread
 plt.axis("off")
 plt.subplot(3,2,4)
 plt.title("Anotación Detección")
 plt.axis("off")
-plt.imshow(io.imread("Deteccion.jpeg"))
+plt.imshow(io.imread("Deteccion.jpeg"))# se lee la imagen correspondiente a la anotación de detección con io.imread
 plt.subplot(3,2,5)
 plt.title("Anotación Segmentación \nSemántica")
-plt.imshow(io.imread("Seg_Semantica.jpeg"))
+plt.imshow(io.imread("Seg_Semantica.jpeg")) # se lee la imagen correspondiente a la segmentación semántica con io.imread
 plt.axis("off")
 plt.subplot(3,2,6)
 plt.title("Anotación Segmentación \nde Instancias")
 plt.axis("off")
-plt.imshow(io.imread("Seg_Instancias.jpeg"))
-plt.tight_layout()
-plt.show()
-plt.savefig("VisualizaciónAnotaciones",Bbox_inches="tight")
+plt.imshow(io.imread("Seg_Instancias.jpeg"))# se lee la imagen correspondiente a la segmentación de instancias con io.imread
+plt.tight_layout() #se utiliza plt.tight_layout() para evitar que se sobrepongan títulos y se ajusten las imágenes
+plt.show() # visualizar la figura con plt.show
+plt.savefig("VisualizaciónAnotaciones",Bbox_inches="tight") # se guarda la figura indicando como 2do parámetro Bbox_inches="tight" para evitar que los bordes blancos sean muy gruesos 
 ##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
 monedaURL="https://web.stanford.edu/class/ee368/Handouts/Lectures/Examples/11-Edge-Detection/Hough_Transform_Circles/coins.png"
 monedas = requests.get(monedaURL)
@@ -181,7 +181,27 @@ plt.show()
 for i in range(len(vol1[0,0])):
    plt.imshow(vol1[:,:,i], cmap='gray')
    plt.axis('off')
-   plt.title(f'Resonancia paciente 12, corte {i}')
+   plt.title(f'Resonancia paciente 12, eje z, corte {i}')
+   plt.draw()
+   plt.pause(0.001)
+   plt.clf()
+##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+plt.ion()
+plt.show()
+for i in range(len(vol1)):
+   plt.imshow(vol1[i,:,:], cmap='gray')
+   plt.axis('off')
+   plt.title(f'Resonancia paciente 12, eje x, corte {i}')
+   plt.draw()
+   plt.pause(0.001)
+   plt.clf()
+##input("Press Enter to continue...") # input para continuar con el programa cuando usuario presione Enter cuando desee
+plt.ion()
+plt.show()
+for i in range(len(vol1[0])):
+   plt.imshow(vol1[:,i,:], cmap='gray')
+   plt.axis('off')
+   plt.title(f'Resonancia paciente 12, eje y, corte {i}')
    plt.draw()
    plt.pause(0.001)
    plt.clf()

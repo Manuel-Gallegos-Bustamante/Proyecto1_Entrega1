@@ -163,7 +163,7 @@ for i in archivosresonancias: # se realiza recorrido para todos los archivos de 
 	#Atributo identificar paciente -> intent_name     : b'Patient 3'
 	#Atributo identificar #total cortes -> slice_end       : 35
 	#Atributo identificar #corte -> descrip         : b'Slice 1'
-	#Atributo resolución corte->  bitpix          : 16
+	#Atributo resolución corte->  dim             : [  2 512 512   1   1   1   1   1]
 #Se inicializan tres variables de 3 dimensiones las cuales corresponden a las resonancias de cada paciente por lo cual se llama la llave de cada paciente en el dict para cada paciente y el valor la llave que se desea tenga cada dimensión
 vol1=np.zeros([info['Patient 12']['filas'], info['Patient 12']['columnas'],info['Patient 12']['cortes']]) # variable para Patient 12
 vol2=np.zeros([info['Patient 14']['filas'], info['Patient 14']['columnas'],info['Patient 14']['cortes']]) # variable para Patient 14

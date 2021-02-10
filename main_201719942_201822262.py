@@ -272,3 +272,8 @@ for i in range(len(vol3[0])):# recorrido para visualización eje y
 	plt.draw()
 	plt.pause(0.001) # se realiza una pausa de 0.001 segundos para porteriormente cerrar la visualización del corte
 	plt.clf()
+
+##
+
+dato = " "
+dato.
